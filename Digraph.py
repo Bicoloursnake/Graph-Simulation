@@ -11,22 +11,27 @@ class Digraph:
         self.Vertices.append(v)
 
     def newArc(self, tail: Vertex, head: Vertex, weight : int = 1):
-        tail.addArc(head)
-        self.Arcs.append(Arc(tail,head,weight))
-
-    def printDigraphCSV(self):
-        outputStr : str = ''
-        for i in self.Vertices:
-            for j in self.Vertices:
-                arcCount : int = 0
-                if j in i.Heads:
-                    outputStr += str(i.arcCount[i.Heads.index(j)]) + ','
-                else:
-                    outputStr += '0,'
-            outputStr = outputStr[0:len(outputStr)-1]
-            outputStr += '\n'
-        outputStr = outputStr[0:len(outputStr)-1]
-        print(outputStr)
+        a : Arc = Arc(tail, head, weight)
+        tail.addArc(a)
+        self.Arcs.append(a)
 
     def getVertices(self) -> 'list[Vertex]':
         return self.Vertices
+    
+    def getAdjacencyMatrix(self) -> 'list[list[int]]':
+        adjMatrix : 'list[list[int]]' = []
+        for x in range(len(self.Vertices)):
+            adjMatrix.append([])
+            for y in range(len(self.Vertices)):
+                adjMatrix[x].append(0)
+        for i in self.Vertices:
+            for a in i.Heads:
+                adjMatrix[self.Vertices.index(i)][self.Vertices.index(a.head)] += 1
+        return adjMatrix
+    
+    def containsALoop(self) -> bool:
+        for v in self.getVertices():
+            for a in v.Heads:
+                if a.isLoop():
+                    return True
+        return False

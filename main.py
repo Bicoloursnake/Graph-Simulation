@@ -13,6 +13,7 @@ for i in range(len(inputMatrix)):
         for k in range(int(inputMatrix[i][j])):
             digraph.newArc(digraph.getVertices()[i], digraph.getVertices()[j])
 
-digraph.printDigraphCSV()
+print(digraph.containsALoop())
+print(digraph.getAdjacencyMatrix())
 
 

@@ -5,4 +5,7 @@ class Arc:
         self.tail : Vertex = tail
         self.head : Vertex = head
         self.weight = weight
+
+    def isLoop(self) -> bool:
+        return self.tail == self.head
         
