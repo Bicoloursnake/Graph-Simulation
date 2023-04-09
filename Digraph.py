@@ -2,9 +2,18 @@ from Vertex import Vertex
 from Arc import Arc
 class Digraph:
 
-    def __init__(self):
+    def __init__(self, adjMatrix: 'list[list[int]]' = []):
         self.Vertices : 'list[Vertex]' = []
         self.Arcs : 'list[Arc]' = []
+        for i in range(len(adjMatrix)):
+            self.newVertex()
+        for i in range(len(adjMatrix)):
+            for j in range(len(adjMatrix[i])):
+                for k in range(adjMatrix[i][j]):
+                    self.newArc(self.getVertices()[i], self.getVertices()[j])
+
+    def __str__(self) -> str:
+        return str(self.getAdjacencyMatrix())
 
     def newVertex(self):
         v : Vertex = Vertex()
@@ -28,7 +37,7 @@ class Digraph:
             for a in i.Heads:
                 adjMatrix[self.Vertices.index(i)][self.Vertices.index(a.head)] += 1
         return adjMatrix
-    
+
     def containsALoop(self) -> bool:
         for v in self.getVertices():
             for a in v.Heads:

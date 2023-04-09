@@ -1,1 +1,5 @@
 /__pycache__
+DirectedPath.py
+Path.py
+Tree.py
+*.gitignore
